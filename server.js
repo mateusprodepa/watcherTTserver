@@ -10,6 +10,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/usuarios', usuarios);
 
-app.get("/smiley", () => res.json({"Bem vindo": "🌎 :D"}))
+app.get("/smiley", () => res.json({"Bem vindo": "✈️"}))
 
 app.listen(port, () => console.info(`🌎 => Servidor rodando na porta ${port}`))
