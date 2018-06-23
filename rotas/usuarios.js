@@ -16,6 +16,7 @@ router.post("/", (req, res) => {
         email: user.email,
       }, 'sHzJk@@', (err, token) => res.json({ token }));
     } else {
+      console.log(request);
       res.json({ erro: 'Não foi possível encontrar seu usuário. '});
     }
   });
