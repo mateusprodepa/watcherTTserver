@@ -7,9 +7,10 @@ const Usuario = new Schema({
   email: String,
   nome: String,
   setor: String,
-  senha: String,
+  password: String,
   dataDeEntrada: Date,
-  sistemas: Array,
+  matricula: String,
+  sistemas: {type: Array, default: []},
 });
 
 module.exports = mongoose.model('usuario', Usuario);
