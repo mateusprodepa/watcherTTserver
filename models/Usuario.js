@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.Schema.Types.ObjectId;
+// const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const Usuario = new Schema({
-  id: ObjectId,
+  id: String,
   email: String,
   nome: String,
   setor: String,

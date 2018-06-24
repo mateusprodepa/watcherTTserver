@@ -1,7 +1,7 @@
 const express = require("express");
 const Usuario = require('../models/Usuario');
 const mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://knevari:sorry4feedurmatchbro@ds217131.mlab.com:17131/nfpro');
+const db = mongoose.connect('mongodb://localhost/nfpro');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 

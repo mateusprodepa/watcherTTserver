@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 const usuarios = require('./rotas/usuarios');
 const auth = require('./rotas/auth');
 
