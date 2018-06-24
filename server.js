@@ -11,6 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/usuarios', usuarios);
 app.use('/api/auth', auth);
 
-app.get("/smiley", () => res.json({"Bem vindo": "✈️"}))
+app.get("/smiley", () => res.json({"Hello World": "✈️"}))
 
 app.listen(port, () => console.info(`🌎 => Servidor rodando na porta ${port}`))

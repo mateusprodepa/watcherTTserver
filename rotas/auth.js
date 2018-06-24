@@ -1,7 +1,7 @@
 const express = require("express");
 const Usuario = require('../models/Usuario');
 const mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://localhost/nfpro');
+const db = mongoose.connect('mustafar.mongodb.umbler.com:54782');
 const jwt = require('jsonwebtoken');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
@@ -20,13 +20,12 @@ const validarCadastro = (dados, callback, warn) => {
   if(Object.keys(encounteredErrors).length !== 0) {
     return warn(encounteredErrors);
   } else {
-    const hash = bcrypt.hashSync(dados.password, 10);
     res = {
       errors: encounteredErrors,
       email: dados.email,
       nome: dados.login,
       setor: dados.setor,
-      password: hash,
+      password: bcrypt.hashSync(dados.password, 10),
       matricula: dados.matricula,
       id: shortid.generate(),
     }
