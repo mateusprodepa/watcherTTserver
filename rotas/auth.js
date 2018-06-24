@@ -1,11 +1,11 @@
 const express = require("express");
 const Usuario = require('../models/Usuario');
 const mongoose = require('mongoose');
-const db = mongoose.connect('mustafar.mongodb.umbler.com:54782');
 const jwt = require('jsonwebtoken');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
 const SECRET_KEY = require('./key');
+const db = mongoose.connect('mustafar.mongodb.umbler.com:54782');
 const router = express.Router();
 
 const validarCadastro = (dados, callback, warn) => {
