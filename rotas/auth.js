@@ -40,26 +40,32 @@ const validarCadastro = (dados = {}, callback, warn) => {
 
 router.post("/", (req, res) => {
   let { email, login, setor, password, cnfPass, matricula, errors } = req.body;
-  const dados = validarCadastro({ email, login, setor, password, cnfPass, matricula, errors }, dados => {
-    Usuario.findOne({ email }, (err, u) => {
-      if(!u) {
-        const user = new Usuario(dados);
-        user.save((err, usuario) => {
-          if(err) {
-            res.status(500).send({ error: "Não foi possível criar a sua conta." });
-          } else {
-            jwt.sign({
-              nome: user.nome,
-              email: user.email,
-              id: user.id
-            }, SECRET_KEY, (err, token) => res.json({ token }));
-          }
-        });
-      } else {
-        res.json(Object.assign({ nomeEmUso: "Este email já está em uso" }, errors));
-      }
+  const dados = validarCadastro({
+    email,
+    login,
+    setor,
+    password,
+    cnfPass,
+    matricula,
+    errors
+  }, userData => {
+
+    Usuario.findOne({ email }, (err, resultado) => {
+      if (resultado) return res.json(Object.assign({ nomeEmUso: "Este email já está em uso" }, errors));
+      
+      const user = new Usuario(userData);
+      user.save((err, usuario) => {
+
+        if(err) return res.status(500).send({ error: "Não foi possível criar a sua conta." })
+
+        jwt.sign({ nome: user.nome, email: user.email, id: user.id },
+          SECRET_KEY, (err, token) =>
+          res.json({ token }));
+
+      });
     });
-  }, err => err ? res.json(err) : "");
+  },
+  err => err ? res.json(err) : "");
 });
 
 module.exports = router;

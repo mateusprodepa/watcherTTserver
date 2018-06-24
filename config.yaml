@@ -1,4 +1,9 @@
 jwtConfig:
-  secretCode:
-    "justInCase@@"
-    
+  secretCode: justInCase@@
+dependencies:
+  bcrypt
+  body-parser
+  express
+  jsonwebtoken"
+  mongoose"
+  shortid"
