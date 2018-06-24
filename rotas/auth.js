@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
 const SECRET_KEY = require('./key');
-const db = mongoose.connect('mustafar.mongodb.umbler.com:54782');
+const db = mongoose.connect('mongodb://localhost/nfpro');
 const router = express.Router();
 
-const validarCadastro = (dados, callback, warn) => {
-  let encounteredErrors = {};
-  let res;
+// Função para validar os parâmetros passados pelo usuário através do formulário de cadastro
+const validarCadastro = (dados = {}, callback, warn) => {
+  let encounteredErrors = {}, res;
   for(var i in dados) {
     if(dados[i] === "" || null || undefined) encounteredErrors = Object.assign({ camposVazios: "Por favor, não deixe os campos em branco" }, encounteredErrors);
   }
@@ -34,10 +34,14 @@ const validarCadastro = (dados, callback, warn) => {
   return callback(res);
 }
 
+// WARNING: Rota para cadastrar novo usuário caso os parâmetros estejam corretos
+// WARNING: Funcionalidade baseada em uma única função que recebe os parâmetros
+// WARNING: Da requisição HTTP, valida, e retorna um callback dependendo do resultado
+
 router.post("/", (req, res) => {
   let { email, login, setor, password, cnfPass, matricula, errors } = req.body;
   const dados = validarCadastro({ email, login, setor, password, cnfPass, matricula, errors }, dados => {
-    Usuario.findOne({ nome: login }, (err, u) => {
+    Usuario.findOne({ email }, (err, u) => {
       if(!u) {
         const user = new Usuario(dados);
         user.save((err, usuario) => {
@@ -52,11 +56,13 @@ router.post("/", (req, res) => {
           }
         });
       } else {
-        errors = Object.assign({ nomeEmUso: "Este nome de usuário já está em uso" }, errors);
-        res.json(errors);
+        res.json(Object.assign({ nomeEmUso: "Este email já está em uso" }, errors));
       }
     });
   }, err => err ? res.json(err) : "");
 });
 
 module.exports = router;
+
+
+// NOTE: Developed by Mateus Souza // 24/06/2018

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const SECRET_KEY = require('./key');
-const db = mongoose.connect('mustafar.mongodb.umbler.com:54782');
+const db = mongoose.connect('mongodb://localhost/nfpro');
 const router = express.Router();
 
 router.post("/", (req, res) => {
@@ -26,3 +26,5 @@ router.post("/", (req, res) => {
 });
 
 module.exports = router;
+
+// NOTE: Developed by Mateus Souza // 24/06/2018
