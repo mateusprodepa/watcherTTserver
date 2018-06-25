@@ -40,7 +40,8 @@ const validarCadastro = (dados = {}, callback, warn) => {
 
 router.post("/", (req, res) => {
   let { email, login, setor, password, cnfPass, matricula, errors } = req.body;
-  const dados = validarCadastro({
+
+  let request = {
     email,
     login,
     setor,
@@ -48,12 +49,15 @@ router.post("/", (req, res) => {
     cnfPass,
     matricula,
     errors
-  }, userData => {
+  }
+
+  const dados = validarCadastro(request, userData => {
 
     Usuario.findOne({ email }, (err, resultado) => {
       if (resultado) return res.json(Object.assign({ nomeEmUso: "Este email já está em uso" }, errors));
-      
+
       const user = new Usuario(userData);
+
       user.save((err, usuario) => {
 
         if(err) return res.status(500).send({ error: "Não foi possível criar a sua conta." })
