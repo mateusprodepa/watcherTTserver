@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
 const SECRET_KEY = require('./key');
-const db = mongoose.connect('mongodb://localhost/nfpro');
+const db = mongoose.connect('mongodb://localhost/watcher');
 const router = express.Router();
 
 // Função para validar os parâmetros passados pelo usuário através do formulário de cadastro
