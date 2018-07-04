@@ -4,7 +4,7 @@ const express = require('express');
 const SECRET_KEY = require('./key');
 const Usuario = require('../models/Usuario');
 
-const db = mongoose.connect('mongodb://localhost/watcher');
+const db = mongoose.connect('mongodb://localhost:27017/watcher');
 const router = express.Router();
 
 router.get('/', verifyToken, (req, res) => {

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const SECRET_KEY = require('./key');
-const db = mongoose.connect('mongodb://localhost/watcher');
+const db = mongoose.connect('mongodb://localhost:27017/watcher');
 const router = express.Router();
 
 router.post("/", (req, res) => {
