@@ -39,6 +39,7 @@ const validarCadastro = (dados = {}, callback, warn) => {
 // WARNING: Da requisição HTTP, valida, e retorna um callback dependendo do resultado
 
 router.post("/", (req, res) => {
+  console.log(req.body);
   let { email, login, setor, password, cnfPass, matricula, errors } = req.body;
 
   let request = {
@@ -64,7 +65,7 @@ router.post("/", (req, res) => {
 
         jwt.sign({ nome: user.nome, email: user.email, id: user.id },
           SECRET_KEY, (err, token) =>
-          res.json({ token }));
+            res.json({ token }));
 
       });
     });

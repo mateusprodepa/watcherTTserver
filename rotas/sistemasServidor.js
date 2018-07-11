@@ -13,18 +13,17 @@ router.post('/', (req, res) => {
 
     sistema.status = status;
     sistema.save((err, sys) => {
-      if(err) return ers.sendStatus(403);
-      res.json(sys);
+      if(err) return res.sendStatus(403);
+      res.json([sys]);
     });
   });
 });
 
 router.post('/novoSistema', (req, res) => {
-  const { nome, status } = req.body;
+  const { nome } = req.body;
   const s = new Sistema({
-    nome,
-    status
-  })
+    nome
+  });
 
   s.save((err, sys) => {
     if(err) return res.sendStatus(403);

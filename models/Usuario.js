@@ -10,7 +10,14 @@ const Usuario = new Schema({
   password: String,
   dataDeEntrada: Date,
   matricula: String,
-  sistemas: { type: Object, default: { nome: "sisp2", imgUrl: "http://www.egpa.pa.gov.br/sites/default/files/bannergoverno_digital.jpg", status: "Online"  }},
+  sistemas: { type: Array,
+    default: [
+      {
+        nome: "sisp2",
+        imgUrl: "http://www.egpa.pa.gov.br/sites/default/files/bannergoverno_digital.jpg",
+        status: "Online"
+      }
+    ]},
 });
 
 module.exports = mongoose.model('usuario', Usuario);
