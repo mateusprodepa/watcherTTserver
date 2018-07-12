@@ -13,12 +13,17 @@ const router = express.Router();
 router.get('/', verifyToken, (req, res) => {
   jwt.verify(req.token, SECRET_KEY, (err, user) => {
     if(err) return res.sendStatus(403);
+
     const { id, nome, email } = user;
+
     Usuario.findOne({ email }, (err, us) => {
       if(err) return res.sendStatus(403);
 
+      let counter = 0;
       us.sistemas.forEach(sistema => {
+        counter++
         Sistema.find({ nome: sistema.nome }, (err, sys) => {
+
           if(err) return res.sendStatus(403);
           if(!sys) return res.sendStatus(403);
 
@@ -26,14 +31,17 @@ router.get('/', verifyToken, (req, res) => {
             if(s.nome === sistema.nome) {
               sistema.status = s.status;
             }
-          })
+          });
 
           us.save((err, user) => {
             if(err) return res.sendStatus(403);
-            res.json(user.sistemas);
+            if(counter === user.sistemas.length) {
+              counter = 0;
+              res.json(user.sistemas);
+            };
           });
         });
-      })
+      });
     });
   });
 });
